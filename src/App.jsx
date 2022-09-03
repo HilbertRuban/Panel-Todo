@@ -1,15 +1,19 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { useState } from "react";
+import reactLogo from "./assets/react.svg";
+import "./App.css";
+import Hero from "./components/Hero";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <div className="App">
-      <h1 class="text-3xl font-bold underline text-center m-4">Todo app</h1>
+    <div
+      className="
+    w-screen
+    h-screen 
+    bg-gradient-to-r from-white via-pink-100 to-purple-200"
+    >
+      <Hero />
     </div>
-  )
-}
+  );
+}500
 
-export default App
+export default App;
