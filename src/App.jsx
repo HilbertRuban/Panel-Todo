@@ -14,6 +14,7 @@ function App() {
       <Hero />
     </div>
   );
-}500
+}
+;
 
 export default App;
