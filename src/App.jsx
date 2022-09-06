@@ -7,8 +7,8 @@ import TaskSection from "./components/TaskSection";
 function App() {
   return (
     <div
-      className=" w-[100vw]
-    bg-gradient-to-r from-white via-pink-100 to-purple-200"
+      className=" w-[100vw] max-h-[80px]
+    bg-gradient-to-r from-white to-purple-100"
     >
       <Hero />
       <TaskSection />
