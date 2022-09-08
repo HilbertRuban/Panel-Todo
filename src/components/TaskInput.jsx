@@ -31,7 +31,7 @@ const AutoTextArea = (props) => {
 			className={`min-h-${parentHeight}`}
 		>
 			<textarea 
-                className={`resize-none px-2 tracking-[3px] w-[100%] overflow-y-hidden focus:outline-0 border-b-2 border-b-slate-500`}
+                className={`resize-none px-2 tracking-[3px] w-[100%] overflow-y-hidden focus:outline-0 border-b-4 border-b-slate-500`}
 				{...props}
 				ref={textAreaRef}    
 				rows={1}
