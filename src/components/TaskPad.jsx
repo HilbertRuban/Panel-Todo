@@ -1,13 +1,15 @@
-import React from 'react'
-
+import React, { useEffect, useRef, useState } from 'react'
+import TaskInput from './TaskInput'
 const TaskPad = () => {
-  // let a = ['hi','dlad','aenfkankj','afnenafja','aefnalnfk','hqeodandk','wndkjaenkjn','daenajnj','afnanfja'];
-  let a = [];
-  let list = a.map(item => (
+  
+
+  let a = ['hi','dlad','aenfkankj','afnenafja','aefnalnfk','hqeodandk','wndkjaenkjn','daenajnj','afnanfja'];
+  // let a = ['yep'];
+  let list = a.map((item,index) => (
     <>
-    <div className="text-[30px] flex flex-col items-center relative top-10 h-[90px] font-[cursive]">
-      {item}
-      <span className="bg-slate-500 h-[2px] w-[100%]"></span>
+    <span className="relative top-20 left-[50px] font-bold text-[28px]">{`${index + 1})`}</span>
+    <div className="text-[30px] ml-[105px] pb-[30px] flex flex-col relative top-9 font-[cursive]">
+      <TaskInput />
     </div>
     </>
   ))
@@ -37,6 +39,7 @@ const TaskPad = () => {
           ">
           </div>
           <p className='text-center underline decoration-slice text-[30px] pb-12 text-[#581c87] tracking-wider font-serif relative top-12'>Hilbert's Task</p>
+          <div className='absolute top-[40px] z-10 left-[100px] w-[5px] h-[100%] bg-[#1a1a1a7c]'></div>
           {list}
     </div>
   )
