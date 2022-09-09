@@ -1,16 +1,38 @@
+import axios from "axios";
 import React, { useState } from "react";
 
 const SignInModal = ({setSignUpShow}) => {
   const [signUpClose, setSignUpClose] = useState(false);
+  const [signUp, setSignUp] = useState({
+    username:'',
+    email:'',
+    password:''
+  })
   const onSignupCloseHandle = () => {
     setSignUpClose(!close);
     setSignUpShow(false);
+  }
+  const {username, email, password} = signUp;
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const data = {
+      username,
+      email,
+      password
+    }
+    axios({
+      method: 'POST',
+      url:'',
+      data
+    })
+    console.log(data,'yes it is');
   }
   return (
     <>
       {!signUpClose ? (
         <>
-          <div className="absolute top-0 left-0 right-0 bottom-0 bg-[rgba(0,0,0,0.6)] h-screen w-screen"></div>
+          <div className="fixed top-0 left-0 right-0 bottom-0 z-10 bg-[rgba(0,0,0,0.6)] h-screen w-screen"></div>
           <div
             id="authentication-modal"
             tabIndex="-1"
@@ -55,6 +77,8 @@ const SignInModal = ({setSignUpShow}) => {
                       </label>
                       <input
                         type="text"
+                        value={signUp.username}
+                        onChange={(e) => setSignUp({...signUp, username: e.target.value})}
                         name="username"
                         id="username"
                         className="peer bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
@@ -71,15 +95,15 @@ const SignInModal = ({setSignUpShow}) => {
                       </label>
                       <input
                         type="email"
+                        value={signUp.email}
+                        onChange={(e) => setSignUp({...signUp, email: e.target.value})}
                         name="email"
                         id="email"
                         className="peer bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                         placeholder="name@company.com"
                         required
                       />
-                      <p class="mt-2 invisible peer-invalid:visible text-pink-600 text-sm">
-                        Please provide a valid email address.
-                      </p>
+        
                     </div>
                     <div>
                       <label
@@ -90,6 +114,8 @@ const SignInModal = ({setSignUpShow}) => {
                       </label>
                       <input
                         type="password"
+                        value={signUp.password}
+                        onChange={(e) => setSignUp({...signUp, password: e.target.value})}
                         name="password"
                         id="password"
                         placeholder="••••••••"
@@ -98,25 +124,9 @@ const SignInModal = ({setSignUpShow}) => {
                       />
                     </div>
 
-                    <div>
-                      <label
-                        htmlFor="confirmPassword"
-                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                      >
-                        Confirm password
-                      </label>
-                      <input
-                        type="password"
-                        name="password"
-                        id="confirmPassword"
-                        placeholder="••••••••"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                        required
-                      />
-                    </div>
-
                     <button
                       type="submit"
+                      onClick={handleSubmit}
                       className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                     >
                       Register your account

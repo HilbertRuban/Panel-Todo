@@ -9,6 +9,7 @@ const AutoTextArea = (props) => {
 	const [text, setText] = useState("");
 	const [textAreaHeight, setTextAreaHeight] = useState("auto");
 	const [parentHeight, setParentHeight] = useState("auto");
+	const [disabled,setDisabled] = useState(false);
 
 	useEffect(() => {
 		setParentHeight(`${textAreaRef.current.scrollHeight}px`);
@@ -39,7 +40,7 @@ const AutoTextArea = (props) => {
 					height: textAreaHeight,
 				}}
 				onChange={onChangeHandler}
-                // disabled 
+                disabled={disabled}
 			/>
 
         {/*      */}

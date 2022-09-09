@@ -10,7 +10,7 @@ const SignInModal = ({setSignInShow}) => {
     <>
       {!signInClose ? (
         <>
-          <div className="absolute top-0 left-0 right-0 bottom-0 bg-[rgba(0,0,0,0.6)] h-screen w-screen"></div>
+        <div className="fixed top-0 bottom-0 left-0 right-0 z-10 bg-[rgba(0,0,0,0.6)] w-screen h-screen"></div>
           <div
             id="authentication-modal"
             tabIndex="-1"
