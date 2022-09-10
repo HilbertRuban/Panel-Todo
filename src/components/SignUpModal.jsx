@@ -1,33 +1,43 @@
 import axios from "axios";
 import React, { useState } from "react";
+import Toast from "../utilitiesComponent/Toast";
+import { ToastContext } from "../App";
+import { UserSigned } from "./UserInfo"; 
+import { useContext } from "react";
 
-const SignInModal = ({setSignUpShow}) => {
+const SignInModal = ({ setSignUpShow }) => {
+  const setMessage = useContext(ToastContext);
+  const setShowSignedIn = useContext(UserSigned);
   const [signUpClose, setSignUpClose] = useState(false);
   const [signUp, setSignUp] = useState({
-    username:'',
-    email:'',
-    password:''
-  })
+    username: "",
+    email: "",
+    password: "",
+  });
   const onSignupCloseHandle = () => {
-    setSignUpClose(!close);
     setSignUpShow(false);
-  }
-  const {username, email, password} = signUp;
+  };
+  const { username, email, password } = signUp;
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const data = {
       username,
       email,
-      password
-    }
-    axios({
-      method: 'POST',
-      url:'',
-      data
+      password,
+      verified: 1,
+    };
+    let a = axios.post("http://todo.localhost/api/users", data)
+    a.then(resp => {
+      setSignUpShow(false);
+      setMessage(resp.data.Message);
+      setToast(true);
+      setShowSignedIn(true);
     })
-    console.log(data,'yes it is');
-  }
+      .catch(err => {
+        console.log(err);
+      })
+  };
   return (
     <>
       {!signUpClose ? (
@@ -68,7 +78,7 @@ const SignInModal = ({setSignUpShow}) => {
                     Register
                   </h3>
                   <form className="space-y-6" action="#">
-                  <div>
+                    <div>
                       <label
                         htmlFor="username"
                         className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
@@ -78,7 +88,9 @@ const SignInModal = ({setSignUpShow}) => {
                       <input
                         type="text"
                         value={signUp.username}
-                        onChange={(e) => setSignUp({...signUp, username: e.target.value})}
+                        onChange={(e) =>
+                          setSignUp({ ...signUp, username: e.target.value })
+                        }
                         name="username"
                         id="username"
                         className="peer bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
@@ -96,14 +108,15 @@ const SignInModal = ({setSignUpShow}) => {
                       <input
                         type="email"
                         value={signUp.email}
-                        onChange={(e) => setSignUp({...signUp, email: e.target.value})}
+                        onChange={(e) =>
+                          setSignUp({ ...signUp, email: e.target.value })
+                        }
                         name="email"
                         id="email"
                         className="peer bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                         placeholder="name@company.com"
                         required
                       />
-        
                     </div>
                     <div>
                       <label
@@ -115,7 +128,9 @@ const SignInModal = ({setSignUpShow}) => {
                       <input
                         type="password"
                         value={signUp.password}
-                        onChange={(e) => setSignUp({...signUp, password: e.target.value})}
+                        onChange={(e) =>
+                          setSignUp({ ...signUp, password: e.target.value })
+                        }
                         name="password"
                         id="password"
                         placeholder="••••••••"
@@ -131,7 +146,6 @@ const SignInModal = ({setSignUpShow}) => {
                     >
                       Register your account
                     </button>
-                   
                   </form>
                 </div>
               </div>

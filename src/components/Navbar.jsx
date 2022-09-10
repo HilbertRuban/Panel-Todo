@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import UserInfo from "./UserInfo";
 
 const Navbar = () => {
-  const [showSignedIn, setShowSignedIn] = useState(false);
   return (
     <nav className="md:flex pt-3">
       <header className="pl-3 ">
@@ -13,7 +12,7 @@ const Navbar = () => {
           ify
         </p>
       </header>
-      <UserInfo signedIn={showSignedIn}/>
+      <UserInfo />
     </nav>
   );
 };

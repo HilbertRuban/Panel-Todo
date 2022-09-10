@@ -2,12 +2,13 @@ import React, { useState } from 'react'
 import Logout from '../utilitiesComponent/Logout'
 import SignIn from '../utilitiesComponent/SignIn'
 import SignUp from '../utilitiesComponent/SignUp'
-
-const UserInfo = ({signedIn}) => {
-
+export const UserSigned = React.createContext();
+const UserInfo = () => {
+  const [showSignedIn, setShowSignedIn] = useState(false);
   return (
     <>
-    {!signedIn ? 
+    <UserSigned.Provider value={setShowSignedIn}>
+    {!showSignedIn ? 
         <div className="ml-auto mr-8 pt-1">
         <SignUp />
         <SignIn  />
@@ -19,6 +20,7 @@ const UserInfo = ({signedIn}) => {
       </div>
         
     }
+    </UserSigned.Provider>
     </>
   )
 }
