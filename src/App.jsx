@@ -7,23 +7,19 @@ import Toast from "./utilitiesComponent/Toast";
 export const ToastContext = React.createContext();
 
 function App() {
-  const [message,setMessage] = useState('');
-  const [toast,setToast] = useState(false);
-  console.log(message, toast,'app.jsx')
+  const [message, setMessage] = useState("");
+
   return (
     <div
       className=" w-[100vw] max-h-[80px]
     bg-gradient-to-r from-white to-purple-100"
     >
-    <ToastContext.Provider value={setMessage}>
-      <Hero />
-      <TaskSection />
-      <Toast message={message} setMessage={setMessage}/>
-    </ToastContext.Provider>
-      
+      <ToastContext.Provider value={setMessage}>
+        <Hero />
+        <TaskSection />
+        <Toast message={message} setMessage={setMessage} />
+      </ToastContext.Provider>
     </div>
   );
 }
-;
-
 export default App;

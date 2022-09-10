@@ -2,13 +2,13 @@ import axios from "axios";
 import React, { useState } from "react";
 import Toast from "../utilitiesComponent/Toast";
 import { ToastContext } from "../App";
-import { UserSigned } from "./UserInfo"; 
+import { UserSigned } from "./UserInfo";
 import { useContext } from "react";
 
-const SignInModal = ({ setSignUpShow }) => {
+const SignUpModal = ({ setSignUpShow, signUpClose }) => {
   const setMessage = useContext(ToastContext);
   const setShowSignedIn = useContext(UserSigned);
-  const [signUpClose, setSignUpClose] = useState(false);
+
   const [signUp, setSignUp] = useState({
     username: "",
     email: "",
@@ -27,16 +27,15 @@ const SignInModal = ({ setSignUpShow }) => {
       password,
       verified: 1,
     };
-    let a = axios.post("http://todo.localhost/api/users", data)
-    a.then(resp => {
+    let a = axios.post("http://todo.localhost/api/users/signup", data);
+    a.then((resp) => {
       setSignUpShow(false);
       setMessage(resp.data.Message);
-      setToast(true);
-      setShowSignedIn(true);
-    })
-      .catch(err => {
-        console.log(err);
-      })
+      if (resp.data.Message === "Registered successfully")
+        setShowSignedIn(true);
+    }).catch((err) => {
+      console.log(err);
+    });
   };
   return (
     <>
@@ -157,4 +156,4 @@ const SignInModal = ({ setSignUpShow }) => {
   );
 };
 
-export default SignInModal;
+export default SignUpModal;
