@@ -15,7 +15,6 @@ const Hero = () => {
               NOTESify
             </span>
           </h2>
-          <InputTask />
         </div>
       </div>
     </>

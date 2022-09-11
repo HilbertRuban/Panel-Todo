@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { UserSigned } from "./UserInfo";
 import { ToastContext } from "../App";
 import axios from "axios";
@@ -9,7 +9,7 @@ const SignInModal = ({
   setSignInClose,
   setSignUpClose,
 }) => {
-  const setMessage = useContext(ToastContext);
+  const { setMessage, setUserData, setUserId } = useContext(ToastContext);
   const setShowSignedIn = useContext(UserSigned);
 
   const [signIn, setSignIn] = useState({
@@ -21,10 +21,18 @@ const SignInModal = ({
     setSignInShow(false);
   };
 
+  const getUserData = async () => {
+    let user_id = localStorage.getItem("userId");
+    const response = await axios.get(
+      `http://todo.localhost/api/task/${user_id}`
+    );
+    console.log(response, "alll");
+  };
+
   const { email, password } = signIn;
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    setUserId(window.localStorage.removeItem("userId"));
     const data = {
       email,
       password,
@@ -32,8 +40,13 @@ const SignInModal = ({
     let checkUser = axios.post("http://todo.localhost/api/users/signin", data);
     checkUser
       .then((resp) => {
+        setUserData(resp.data.user);
         setMessage(resp.data.message);
         if (resp.data.message === "Logged in successfully") {
+          console.log(resp.data.user, "user signin");
+          setUserId(window.localStorage.removeItem("userId"));
+          setUserId(window.localStorage.setItem("userId", resp.data.user.id));
+          getUserData();
           setSignInShow(false);
           setShowSignedIn(true);
         } else {
@@ -44,6 +57,16 @@ const SignInModal = ({
         console.log(err);
       });
   };
+
+  // useEffect(() => {
+  //   let getUserData = async() => {
+  //     const response = await axios.get(`http://todo.localhost/api/task/${userId}`)
+  //       console.log(response,'alll')
+  //   }
+
+  //   getUserData();
+
+  // },[termValue])
 
   return (
     <>

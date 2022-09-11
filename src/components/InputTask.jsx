@@ -1,14 +1,51 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useContext, useState } from "react";
+import TaskPad from "./TaskPad";
+import { ToastContext } from "../App";
+import { useEffect } from "react";
+import { useCallback } from "react";
 
 const InputTask = () => {
-  const [term, setTerm] = useState("");
+  const { userData } = useContext(ToastContext);
+  const [term, setTerm] = useState([]);
+  const [termValue, setTermValue] = useState([]);
+
   const handleChange = (e) => {
-    console.log(e.target.value);
     setTerm(e.target.value);
   };
+  const handleSubmit = useCallback((e) => {
+    e.preventDefault();
+    let data = {
+      user_id: userData.id,
+      task_input: term,
+    };
+    let userPost = axios.post("http://todo.localhost/api/task/new", data);
+    userPost
+      .then((resp) => {
+        // console.log(resp)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    setTermValue(term);
+    setTerm("");
+  });
+
+  useEffect(() => {
+    let getUserData = async () => {
+      let user_id = localStorage.getItem("userId");
+      const response = await axios.get(
+        `http://todo.localhost/api/task/${user_id}`
+      );
+      console.log(response, "alll");
+    };
+
+    getUserData();
+  }, []);
+
   return (
     <>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="mt-4 md:mt-10">
           <input
             value={term}
@@ -19,6 +56,7 @@ const InputTask = () => {
           />
         </div>
       </form>
+      <TaskPad />
     </>
   );
 };

@@ -8,13 +8,19 @@ export const ToastContext = React.createContext();
 
 function App() {
   const [message, setMessage] = useState("");
+  const [userData, setUserData] = useState([]);
+  const [userId, setUserId] = useState(
+    () => window.localStorage.getItem("userId") || 0
+  );
 
   return (
     <div
       className=" w-[100vw] max-h-[80px]
     bg-gradient-to-r from-white to-purple-100"
     >
-      <ToastContext.Provider value={setMessage}>
+      <ToastContext.Provider
+        value={{ setMessage, userData, setUserData, userId, setUserId }}
+      >
         <Hero />
         <TaskSection />
         <Toast message={message} setMessage={setMessage} />

@@ -12,7 +12,7 @@ const TaskPad = () => {
     "daenajnj",
     "afnanfja",
   ];
-  // let a = ['yep'];
+
   let list = a.map((item, index) => (
     <>
       <span className="relative top-20 left-[50px] font-bold text-[28px]">{`${
@@ -23,6 +23,7 @@ const TaskPad = () => {
       </div>
     </>
   ));
+
   return (
     <div
       className="
