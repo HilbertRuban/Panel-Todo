@@ -29,15 +29,20 @@ const SignInModal = ({
       email,
       password,
     };
-    let a = axios.post("http://todo.localhost/api/users/signin", data);
-    a.then((resp) => {
-      console.log(resp.data.Message, "response");
-      setSignInShow(false);
-      setMessage(resp.data.Message);
-      if (resp.data.Message === "Logged in successfully") setShowSignedIn(true);
-    }).catch((err) => {
-      console.log(err);
-    });
+    let checkUser = axios.post("http://todo.localhost/api/users/signin", data);
+    checkUser
+      .then((resp) => {
+        setMessage(resp.data.message);
+        if (resp.data.message === "Logged in successfully") {
+          setSignInShow(false);
+          setShowSignedIn(true);
+        } else {
+          setSignInShow(true);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
