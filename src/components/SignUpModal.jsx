@@ -30,8 +30,8 @@ const SignUpModal = ({ setSignUpShow, signUpClose }) => {
     let a = axios.post("http://todo.localhost/api/users/signup", data);
     a.then((resp) => {
       setSignUpShow(false);
-      setMessage(resp.data.Message);
-      if (resp.data.Message === "Registered successfully")
+      setMessage(resp.data.message);
+      if (resp.data.message === "Registered successfully")
         setShowSignedIn(true);
     }).catch((err) => {
       console.log(err);
