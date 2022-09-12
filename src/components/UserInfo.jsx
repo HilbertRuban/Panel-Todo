@@ -1,12 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Logout from "../utilitiesComponent/Logout";
 import SignIn from "../utilitiesComponent/SignIn";
 import SignUp from "../utilitiesComponent/SignUp";
-export const UserSigned = React.createContext();
+import { ToastContext } from "../App";
 const UserInfo = () => {
-  const [showSignedIn, setShowSignedIn] = useState(
-    () => localStorage.getItem("userId") || 0
-  );
+  const { showSignedIn, setShowSignedIn } = useContext(ToastContext);
   const [signUpClose, setSignUpClose] = useState(false);
   const [signInClose, setSignInClose] = useState(false);
 

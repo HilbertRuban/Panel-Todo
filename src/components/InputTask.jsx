@@ -41,7 +41,7 @@ const InputTask = () => {
   });
 
   let getUserData = async () => {
-    // console.log(userId, "user id from input task");
+    console.log(userId, "user id from input task");
     let user_id = localStorage.getItem("userId") || 0;
     const response = await axios.get(
       `http://todo.localhost/api/task/${user_id}`
@@ -51,6 +51,7 @@ const InputTask = () => {
   };
 
   useEffect(() => {
+    localStorage.removeItem("userId");
     getUserData();
   }, []);
 

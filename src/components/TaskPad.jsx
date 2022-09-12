@@ -14,10 +14,6 @@ const TaskPad = ({ usersData }) => {
     </div>
   ));
 
-  function capitalizeFirstLetter(name) {
-    return name.charAt(0).toUpperCase() + name.slice(1);
-  }
-
   return (
     <>
       <div
@@ -51,7 +47,7 @@ const TaskPad = ({ usersData }) => {
           {localStorage.getItem("userId") === null ||
           localStorage.getItem("userId") === "0"
             ? "New Task"
-            : `${capitalizeFirstLetter(userData["name"])}'s Task`}
+            : `${userData["name"]}'s Task`}
         </p>
         <div className="absolute top-[40px] md:top-[40px] z-10 left-[50px] md:left-[100px] w-[3px] md:w-[5px] h-[100%] bg-[#1a1a1a7c]"></div>
         {usersData.length ? (
