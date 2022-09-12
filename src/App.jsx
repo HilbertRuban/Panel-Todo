@@ -1,17 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import "./App.css";
 import Hero from "./components/Hero";
 import TaskSection from "./components/TaskSection";
 import Toast from "./utilitiesComponent/Toast";
+import axios from "axios";
 export const ToastContext = React.createContext();
 
 function App() {
   const [message, setMessage] = useState("");
   const [userData, setUserData] = useState([]);
+  const [getData, setGetData] = useState([]);
   const [userId, setUserId] = useState(
     () => window.localStorage.getItem("userId") || 0
   );
+
+  useEffect(() => {
+    setUserId(localStorage.removeItem("userId"));
+  }, []);
 
   return (
     <div
@@ -19,7 +25,15 @@ function App() {
     bg-gradient-to-r from-white to-purple-100"
     >
       <ToastContext.Provider
-        value={{ setMessage, userData, setUserData, userId, setUserId }}
+        value={{
+          setMessage,
+          userData,
+          setUserData,
+          userId,
+          setUserId,
+          getData,
+          setGetData,
+        }}
       >
         <Hero />
         <TaskSection />

@@ -9,7 +9,8 @@ const SignInModal = ({
   setSignInClose,
   setSignUpClose,
 }) => {
-  const { setMessage, setUserData, setUserId } = useContext(ToastContext);
+  const { setMessage, setUserData, userId, setUserId, setGetData } =
+    useContext(ToastContext);
   const setShowSignedIn = useContext(UserSigned);
 
   const [signIn, setSignIn] = useState({
@@ -22,11 +23,12 @@ const SignInModal = ({
   };
 
   const getUserData = async () => {
-    let user_id = localStorage.getItem("userId");
+    let user_id = localStorage.getItem("userId") || 0;
     const response = await axios.get(
       `http://todo.localhost/api/task/${user_id}`
     );
-    console.log(response, "alll");
+    // console.log(response, "response from signIn");
+    setGetData(response.data.data);
   };
 
   const { email, password } = signIn;
@@ -43,7 +45,7 @@ const SignInModal = ({
         setUserData(resp.data.user);
         setMessage(resp.data.message);
         if (resp.data.message === "Logged in successfully") {
-          console.log(resp.data.user, "user signin");
+          // console.log(resp.data.user, "user signin");
           setUserId(window.localStorage.removeItem("userId"));
           setUserId(window.localStorage.setItem("userId", resp.data.user.id));
           getUserData();
@@ -57,16 +59,6 @@ const SignInModal = ({
         console.log(err);
       });
   };
-
-  // useEffect(() => {
-  //   let getUserData = async() => {
-  //     const response = await axios.get(`http://todo.localhost/api/task/${userId}`)
-  //       console.log(response,'alll')
-  //   }
-
-  //   getUserData();
-
-  // },[termValue])
 
   return (
     <>

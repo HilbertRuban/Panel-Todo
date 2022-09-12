@@ -4,10 +4,8 @@ import SignInModal from "../components/SignInModal";
 const SignIn = ({ signInClose, setSignInClose, setSignUpClose }) => {
   const [signInShow, setSignInShow] = useState(false);
   const openModal = () => {
-    // console.log(signInShow);
     setSignInShow(!signInShow);
   };
-  // console.log(signInShow,'1')
   return (
     <>
       <button

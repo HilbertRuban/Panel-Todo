@@ -6,7 +6,8 @@ import { UserSigned } from "./UserInfo";
 import { useContext } from "react";
 
 const SignUpModal = ({ setSignUpShow, signUpClose }) => {
-  const { setMessage, setUserData, setUserId } = useContext(ToastContext);
+  const { setMessage, setUserData, userId, setUserId, setGetData } =
+    useContext(ToastContext);
   const setShowSignedIn = useContext(UserSigned);
 
   const [signUp, setSignUp] = useState({
@@ -19,11 +20,12 @@ const SignUpModal = ({ setSignUpShow, signUpClose }) => {
   };
 
   const getUserData = async () => {
-    let user_id = localStorage.getItem("userId");
+    let user_id = localStorage.getItem("userId") || 0;
     const response = await axios.get(
       `http://todo.localhost/api/task/${user_id}`
     );
-    console.log(response, "alll");
+    console.log(response, "response from signup");
+    setGetData(response.data.data);
   };
 
   const { username, email, password } = signUp;
@@ -52,15 +54,6 @@ const SignUpModal = ({ setSignUpShow, signUpClose }) => {
     });
   };
 
-  // useEffect(() => {
-  //   let getUserData = async() => {
-  //     const response = await axios.get(`http://todo.localhost/api/task/${userId}`)
-  //       console.log(response,'alll')
-  //   }
-
-  //   getUserData();
-
-  // },[termValue])
   return (
     <>
       {!signUpClose ? (

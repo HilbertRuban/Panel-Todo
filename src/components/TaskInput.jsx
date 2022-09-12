@@ -5,8 +5,9 @@ const AutoTextArea = (props) => {
   const [text, setText] = useState("");
   const [textAreaHeight, setTextAreaHeight] = useState("auto");
   const [parentHeight, setParentHeight] = useState("auto");
-  const [disabled, setDisabled] = useState(false);
+  const [disabled, setDisabled] = useState(true);
 
+  // console.log(props.item,'item from task input');
   useEffect(() => {
     setParentHeight(`${textAreaRef.current.scrollHeight}px`);
     setTextAreaHeight(`${textAreaRef.current.scrollHeight}px`);
@@ -24,7 +25,8 @@ const AutoTextArea = (props) => {
     <>
       <div className={`min-h-${parentHeight}`}>
         <textarea
-          className={`resize-none px-2 tracking-[3px] w-[100%] overflow-y-hidden focus:outline-0 border-b-4 border-b-slate-500`}
+          value={props.item.task_post}
+          className={`resize-none px-2 tracking-[3px] w-[100%] bg-white overflow-y-hidden focus:outline-0 border-b-4 border-b-slate-500`}
           {...props}
           ref={textAreaRef}
           rows={1}
@@ -34,8 +36,6 @@ const AutoTextArea = (props) => {
           onChange={onChangeHandler}
           disabled={disabled}
         />
-
-        {/*      */}
       </div>
     </>
   );

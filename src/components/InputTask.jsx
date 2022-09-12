@@ -4,17 +4,24 @@ import TaskPad from "./TaskPad";
 import { ToastContext } from "../App";
 import { useEffect } from "react";
 import { useCallback } from "react";
+import Toast from "../utilitiesComponent/Toast";
 
 const InputTask = () => {
-  const { userData } = useContext(ToastContext);
+  const { message, setMessage, userData, userId, getData, setGetData } =
+    useContext(ToastContext);
   const [term, setTerm] = useState([]);
-  const [termValue, setTermValue] = useState([]);
 
   const handleChange = (e) => {
     setTerm(e.target.value);
   };
   const handleSubmit = useCallback((e) => {
     e.preventDefault();
+    if (localStorage.getItem("userId") === null) {
+      // console.log(userId,'user if from inputTask')
+      setMessage("You have to sign in to save your daily task");
+      setTerm("");
+      return <Toast message={message} />;
+    }
     let data = {
       user_id: userData.id,
       task_input: term,
@@ -22,24 +29,25 @@ const InputTask = () => {
     let userPost = axios.post("http://todo.localhost/api/task/new", data);
     userPost
       .then((resp) => {
-        // console.log(resp)
+        getUserData();
       })
       .catch((err) => {
         console.log(err);
       });
-    setTermValue(term);
     setTerm("");
   });
 
-  useEffect(() => {
-    let getUserData = async () => {
-      let user_id = localStorage.getItem("userId");
-      const response = await axios.get(
-        `http://todo.localhost/api/task/${user_id}`
-      );
-      console.log(response, "alll");
-    };
+  let getUserData = async () => {
+    // console.log(userId, "user id from input task");
+    let user_id = localStorage.getItem("userId") || 0;
+    const response = await axios.get(
+      `http://todo.localhost/api/task/${user_id}`
+    );
+    // console.log(response,'response from input')
+    setGetData(response.data.data);
+  };
 
+  useEffect(() => {
     getUserData();
   }, []);
 
@@ -56,7 +64,7 @@ const InputTask = () => {
           />
         </div>
       </form>
-      <TaskPad />
+      <TaskPad usersData={getData} />
     </>
   );
 };
