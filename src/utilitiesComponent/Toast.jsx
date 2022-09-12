@@ -11,7 +11,7 @@ const Toast = ({ message, setMessage }) => {
           message
             ? "z-50 top-[16px] transition-all duration-[1000ms]"
             : "z-50 top-[-50px] transition-all duration-[1000ms]"
-        }top-[-50px]  text-center font-serif tracking-[1px] bg-gradient-to-r from-cyan-300 to-blue-500 rounded-lg p-[10px] w-[600px] text-[20px]`}
+        }top-[-50px]  text-center font-serif tracking-[1px] bg-gradient-to-r from-cyan-300 to-blue-500 rounded-lg p-[10px] w-[630px] text-[20px]`}
       >
         {message}
       </div>
