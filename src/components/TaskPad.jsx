@@ -4,15 +4,19 @@ import { ToastContext } from "../App";
 const TaskPad = ({ usersData }) => {
   const { userData } = useContext(ToastContext);
   let list = usersData.map((item, index) => (
-    <>
+    <div key={item.id}>
       <span className="relative top-[52px] left-[50px] font-bold text-[28px]">{`${
         index + 1
       })`}</span>
       <div className="text-[30px] ml-[105px] pb-[10px] flex flex-col relative top-1 font-[cursive]">
         <TaskInput item={item} />
       </div>
-    </>
+    </div>
   ));
+
+  function capitalizeFirstLetter(name) {
+    return name.charAt(0).toUpperCase() + name.slice(1);
+  }
 
   return (
     <>
@@ -44,9 +48,10 @@ const TaskPad = ({ usersData }) => {
           "
         ></div>
         <p className="text-center underline decoration-slice text-[30px] pb-12 text-[#581c87] tracking-wider font-serif relative top-12">
-          {localStorage.getItem("userId") === null
+          {localStorage.getItem("userId") === null ||
+          localStorage.getItem("userId") === "0"
             ? "New Task"
-            : `${userData["name"]}'s Task`}
+            : `${capitalizeFirstLetter(userData["name"])}'s Task`}
         </p>
         <div className="absolute top-[40px] md:top-[40px] z-10 left-[50px] md:left-[100px] w-[3px] md:w-[5px] h-[100%] bg-[#1a1a1a7c]"></div>
         {usersData.length ? (

@@ -16,7 +16,10 @@ const InputTask = () => {
   };
   const handleSubmit = useCallback((e) => {
     e.preventDefault();
-    if (localStorage.getItem("userId") === null) {
+    if (
+      localStorage.getItem("userId") === "0" ||
+      localStorage.getItem("userId") === null
+    ) {
       // console.log(userId,'user if from inputTask')
       setMessage("You have to sign in to save your daily task");
       setTerm("");

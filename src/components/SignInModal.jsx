@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
-import { UserSigned } from "./UserInfo";
+import React, { useContext, useState } from "react";
 import { ToastContext } from "../App";
 import axios from "axios";
 
 const SignInModal = ({
+  setShowSignedIn,
   setSignInShow,
   signInClose,
   setSignInClose,
@@ -11,7 +11,6 @@ const SignInModal = ({
 }) => {
   const { setMessage, setUserData, userId, setUserId, setGetData } =
     useContext(ToastContext);
-  const setShowSignedIn = useContext(UserSigned);
 
   const [signIn, setSignIn] = useState({
     email: "",
@@ -45,12 +44,11 @@ const SignInModal = ({
         setUserData(resp.data.user);
         setMessage(resp.data.message);
         if (resp.data.message === "Logged in successfully") {
-          // console.log(resp.data.user, "user signin");
+          setShowSignedIn(resp.data.user.id);
           setUserId(window.localStorage.removeItem("userId"));
           setUserId(window.localStorage.setItem("userId", resp.data.user.id));
           getUserData();
           setSignInShow(false);
-          setShowSignedIn(true);
         } else {
           setSignInShow(true);
         }

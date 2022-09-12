@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import SignInModal from "../components/SignInModal";
 
-const SignIn = ({ signInClose, setSignInClose, setSignUpClose }) => {
+const SignIn = ({ setShowSignedIn, signInClose, setSignInClose, setSignUpClose }) => {
   const [signInShow, setSignInShow] = useState(false);
   const openModal = () => {
     setSignInShow(!signInShow);
@@ -16,6 +16,7 @@ const SignIn = ({ signInClose, setSignInClose, setSignUpClose }) => {
       </button>
       {signInShow && (
         <SignInModal
+          setShowSignedIn={setShowSignedIn}
           signInClose={signInClose}
           setSignInClose={setSignInClose}
           setSignUpClose={setSignUpClose}

@@ -2,13 +2,11 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Toast from "../utilitiesComponent/Toast";
 import { ToastContext } from "../App";
-import { UserSigned } from "./UserInfo";
 import { useContext } from "react";
 
-const SignUpModal = ({ setSignUpShow, signUpClose }) => {
+const SignUpModal = ({ setShowSignedIn, setSignUpShow, signUpClose }) => {
   const { setMessage, setUserData, userId, setUserId, setGetData } =
     useContext(ToastContext);
-  const setShowSignedIn = useContext(UserSigned);
 
   const [signUp, setSignUp] = useState({
     username: "",
@@ -46,7 +44,7 @@ const SignUpModal = ({ setSignUpShow, signUpClose }) => {
       setUserData(resp.data.user);
       setUserId(window.localStorage.setItem("userId", resp.data.user.id));
       if (resp.data.message === "Registered successfully") {
-        setShowSignedIn(true);
+        setShowSignedIn(resp.data.user.id);
         getUserData();
       }
     }).catch((err) => {
