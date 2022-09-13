@@ -5,7 +5,7 @@ const TaskPad = ({ usersData }) => {
   const { userData } = useContext(ToastContext);
   let list = usersData.map((item, index) => (
     <div key={item.id}>
-      <span className="relative top-[52px] left-[50px] font-bold text-[28px]">{`${
+      <span className="relative top-[100px] left-[50px] font-bold text-[28px]">{`${
         index + 1
       })`}</span>
       <div className="text-[30px] ml-[105px] pb-[10px] flex flex-col relative top-1 font-[cursive]">
@@ -43,6 +43,10 @@ const TaskPad = ({ usersData }) => {
               rounded-tr-[20px]
           "
         ></div>
+         <div className="absolute top-[60px] right-3 z-10">
+        <button className="bg-slate-400 p-[10px] text-white rounded-lg mr-[5px] cursor-pointer hover:opacity-80 ">cancel</button>
+        <button className="bg-blue-400 p-[10px] rounded-lg cursor-pointer hover:opacity-80 ">save</button>
+      </div>
         <p className="text-center underline decoration-slice text-[30px] pb-12 text-[#581c87] tracking-wider font-serif relative top-12">
           {localStorage.getItem("userId") === null ||
           localStorage.getItem("userId") === "0"
@@ -58,6 +62,7 @@ const TaskPad = ({ usersData }) => {
           </div>
         )}
       </div>
+      
     </>
   );
 };

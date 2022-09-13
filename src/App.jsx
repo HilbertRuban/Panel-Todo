@@ -18,9 +18,11 @@ function App() {
     () => localStorage.getItem("userId") || 0
   );
 
+  const [name, setName] = useState("");
+
   useEffect(() => {
-    // setUserId(localStorage.removeItem("userId"));
     setShowSignedIn(localStorage.removeItem("userId"));
+    setName("");
   }, []);
 
   return (
@@ -38,7 +40,9 @@ function App() {
           getData,
           setGetData,
           showSignedIn,
-          setShowSignedIn
+          setShowSignedIn,
+          name,
+          setName,
         }}
       >
         <Hero />

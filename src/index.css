@@ -11,3 +11,11 @@
 body {
   overflow-x: hidden !important;
 }
+
+.icon_display {
+  display: none;
+}
+.icon_display:hover,
+.text_pad-input:hover + .icon_display {
+  display: block;
+}
