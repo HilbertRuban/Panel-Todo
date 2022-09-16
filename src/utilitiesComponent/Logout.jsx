@@ -3,8 +3,9 @@ import React, { useContext } from "react";
 import { ToastContext } from "../App";
 
 const Logout = ({ setShowSignedIn }) => {
-  const { setGetData, setName,name } = useContext(ToastContext);
+  const { setGetData, setName,name, showName, setUserName } = useContext(ToastContext);
   const logoutSubmit = (e) => {
+    // setUserName(localStorage.setItem("name",''));
     e.preventDefault();
     setShowSignedIn(localStorage.setItem("userId", 0));
     const getUserData = async () => {
@@ -12,7 +13,6 @@ const Logout = ({ setShowSignedIn }) => {
       const response = await axios.get(
         `http://todo.localhost/api/task/${user_id}`
         );
-        setName(response.data.data.name || '');  
         setGetData(response.data.data);
       };
       getUserData();

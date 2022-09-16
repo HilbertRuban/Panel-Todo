@@ -1,27 +1,38 @@
-import React, { useContext } from "react";
-import { ToastContext } from "../App";
+// import React, { useContext } from "react";
+// import { useState } from "react";
+// import { ToastContext } from "../App";
 
-const UserName = ({ userData }) => {
-  const { name, setName } = useContext(ToastContext);
+// const UserName = ({ userData }) => {
+//   const { userName, setUserName } = useContext(ToastContext);
 
-  const renderName = () => {
-    if (userData) {
-      setName(
-        Object.keys(userData).length !== 0 ? `Hi ${userData["name"]}` : null
-      );
-      return name;
-    } else {
-      return;
-    }
-  };
-  return (
-    <div className="relative bottom-[30px]">
-      <h2 className="text-[35px] tracking-[2px] text-slate-500 font-serif">
-        {console.log(userData, "yepppy")}
-        {renderName()}
-      </h2>
-    </div>
-  );
-};
+//   // const renderName = () => {
+//   //   if (userData && Object.keys(userData).length) {
+//   //     // setName(
+//   //     //   Object.keys(userData).length !== 0 ? `Hi ${userData["name"]}` : null
+//   //     // );
+//   //     setName(userData['name']);
+//   //     // return name;
+//   //   } else {
+//   //     return;
+//   //   }
+//   // };
 
-export default UserName;
+//   // setName(
+//   //   Object.keys(userData).length !== 0 ? `Hi ${userData["name"]}` : null
+//   // );
+//   // return name;
+//   let setLocalStorageName =
+//     userData && Object.keys(userData).length ? `Hi ${userData["name"]}` : "";
+//   setUserName(window.localStorage.setItem("name", setLocalStorageName));
+
+//   return (
+//     <div className="relative bottom-[30px]">
+//       <h2 className="text-[35px] tracking-[2px] text-slate-500 font-serif">
+//         {console.log(userData, "yepppy")}
+//         {localStorage.getItem("name")}
+//       </h2>
+//     </div>
+//   );
+// };
+
+// export default UserName;

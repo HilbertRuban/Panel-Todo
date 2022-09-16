@@ -5,6 +5,7 @@ import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 const AutoTextArea = (props) => {
   const textAreaRef = useRef(null);
   const [text, setText] = useState("");
+  const [strikeThrough, setStrikeThrough] = useState(false);
   const [textAreaHeight, setTextAreaHeight] = useState("auto");
   const [parentHeight, setParentHeight] = useState("auto");
   const [disabled, setDisabled] = useState(true);
@@ -22,15 +23,28 @@ const AutoTextArea = (props) => {
       props.onChange(event);
     }
   };
+  const handleDelete = () => {
+    let showStrike = !strikeThrough;
+    setStrikeThrough(showStrike);
+    if(showStrike) {
+      console.log('yes');
+      let id = [...props.dataId, props.item.id];
+      props.setDataId(id);
+    }else {
+      setStrikeThrough(false);
+      props.setDataId((data) => data.filter((id) => id !== props.item.id));
+    }
+    // if()
+  }
 
   return (
     <>
-   
       <div className={`min-h-${parentHeight}`}>
-      
         <textarea
           value={props.item.task_post}
-          className={`relative  resize-none pt-12 px-2 tracking-[3px] w-[100%] h-[75px] bg-white overflow-y-hidden focus:outline-0 border-b-4 border-b-slate-500  text_pad-input`}
+          className={`relative  resize-none pt-12 px-2 tracking-[3px] w-[100%] h-[75px] ${
+            strikeThrough ? "line-through" : ""
+          } bg-white overflow-y-hidden focus:outline-0 border-b-4 border-b-slate-500  text_pad-input`}
           {...props}
           ref={textAreaRef}
           rows={1}
@@ -46,6 +60,7 @@ const AutoTextArea = (props) => {
             icon={faPenToSquare}
           />
           <FontAwesomeIcon
+            onClick={handleDelete}
             className="text-red-300 text-[25px] cursor-pointer hover:text-red-500"
             icon={faTrash}
           />

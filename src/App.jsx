@@ -17,12 +17,11 @@ function App() {
   const [showSignedIn, setShowSignedIn] = useState(
     () => localStorage.getItem("userId") || 0
   );
-
-  const [name, setName] = useState("");
+  // const [userName, setUserName] = useState(localStorage.getItem("name") || "");
 
   useEffect(() => {
     setShowSignedIn(localStorage.removeItem("userId"));
-    setName("");
+    // setUserName(localStorage.removeItem("name"));
   }, []);
 
   return (
@@ -41,8 +40,8 @@ function App() {
           setGetData,
           showSignedIn,
           setShowSignedIn,
-          name,
-          setName,
+          // userName,
+          // setUserName,
         }}
       >
         <Hero />
