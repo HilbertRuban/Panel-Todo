@@ -26,6 +26,7 @@ const AutoTextArea = (props) => {
   const handleDelete = () => {
     let showStrike = !strikeThrough;
     setStrikeThrough(showStrike);
+    props.setCancel(false);
     if(showStrike) {
       console.log('yes');
       let id = [...props.dataId, props.item.id];
@@ -34,7 +35,7 @@ const AutoTextArea = (props) => {
       setStrikeThrough(false);
       props.setDataId((data) => data.filter((id) => id !== props.item.id));
     }
-    // if()
+    // if() 
   }
 
   return (

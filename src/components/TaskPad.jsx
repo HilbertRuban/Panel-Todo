@@ -5,13 +5,19 @@ import axios from "axios";
 const TaskPad = ({ usersData }) => {
   const [dataId, setDataId] = useState([]);
   const [strikeValue, setStrikeValue] = useState(false);
-  const { userData } = useContext(ToastContext);
+  const { userData, getData, setGetData } = useContext(ToastContext);
+  const [cancel, setCancel] = useState(false);
   let showCancelSave = false;
 
-
-  if(dataId.length) {
+  if (dataId.length && getData.length) {
+    // console.log(dataId,'dataid in task pad');
     showCancelSave = true;
+  } else {
+    showCancelSave = false;
   }
+  // console.log(getData, "get data in task pad");
+  // console.log('setdata');
+  // console.log(dataId, "data");
 
   let list = usersData.map((item, index) => (
     <div key={item.id}>
@@ -20,6 +26,8 @@ const TaskPad = ({ usersData }) => {
       })`}</span>
       <div className="text-[30px] ml-[105px] pb-[10px] flex flex-col relative top-1 font-[cursive]">
         <TaskInput
+          cancel={cancel}
+          setCancel={setCancel}
           strikeValue={strikeValue}
           setStrikeValue={setStrikeValue}
           dataId={dataId}
@@ -30,20 +38,34 @@ const TaskPad = ({ usersData }) => {
     </div>
   ));
 
+  let getUserData = async () => {
+    let user_id = localStorage.getItem("userId");
+    const response = await axios.get(
+      `http://todo.localhost/api/task/${user_id}`
+    );
+    // console.log(response.data.data, "response data in get user data");
+    if (response.data.data.length) {
+      // console.log("response inside");
+      setGetData(response.data.data);
+    } else {
+      setGetData(response.data.data);
+    }
+  };
+  const handleCancel = () => {
+    getUserData();
+  };
+
   const handleSave = () => {
     let data = {
-      id: dataId
-    }
-    const res = axios.delete('https://httpbin.org/delete', { data });
-
-    let getUserData = async () => {
-      const response = await axios.get(
-        `http://todo.localhost/api/task/all`
-      );
-      console.log(response,'response from task pad ')
-      setGetData(response.data.data);
+      id: dataId,
     };
-  }
+    const res = axios.delete("http://todo.localhost/api/task/delete", { data });
+    res.then((resp) => {
+      if (resp.data.message) {
+        getUserData();
+      }
+    });
+  };
 
   return (
     <>
@@ -76,7 +98,10 @@ const TaskPad = ({ usersData }) => {
         ></div>
         {showCancelSave && (
           <div className="absolute top-[60px] right-3 z-10 transition-all duration-500">
-            <button className=" p-[10px] text-gray-500 rounded mr-[15px] cursor-pointer hover:opacity-80 hover:bg-slate-400 hover:text-white transition-all duration-300">
+            <button
+              onClick={handleCancel}
+              className=" p-[10px] text-gray-500 rounded mr-[15px] cursor-pointer hover:opacity-80 hover:bg-slate-400 hover:text-white transition-all duration-300"
+            >
               cancel
             </button>
             <button

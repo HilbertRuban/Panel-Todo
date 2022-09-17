@@ -18,7 +18,7 @@ function App() {
     () => localStorage.getItem("userId") || 0
   );
   // const [userName, setUserName] = useState(localStorage.getItem("name") || "");
-
+    console.log('setdata')
   useEffect(() => {
     setShowSignedIn(localStorage.removeItem("userId"));
     // setUserName(localStorage.removeItem("name"));
