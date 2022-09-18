@@ -6,7 +6,7 @@ const TaskPad = ({ usersData }) => {
   const [dataId, setDataId] = useState([]);
   const { userData, getData, setGetData } = useContext(ToastContext);
   const [cancel, setCancel] = useState(false);
-  const [showStrikeValue,setShowStrikeValue] = useState(true);
+  const [showStrikeValue, setShowStrikeValue] = useState(true);
   let showCancelSave = false;
 
   if (dataId.length && getData.length) {

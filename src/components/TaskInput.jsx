@@ -24,26 +24,26 @@ const AutoTextArea = (props) => {
     }
   };
   useEffect(() => {
-    if(props.showStrikeValue === false){
+    if (props.showStrikeValue === false) {
       let clearStrikeValue = false;
       let setClearValue = true;
       setStrikeThrough(clearStrikeValue);
       props.setShowStrikeValue(setClearValue);
     }
-  },[props.showStrikeValue]);
+  }, [props.showStrikeValue]);
 
   const handleDelete = () => {
     showStrike = !strikeThrough;
     setStrikeThrough(showStrike);
     props.setCancel(false);
-    if(showStrike) {
+    if (showStrike) {
       let id = [...props.dataId, props.item.id];
       props.setDataId(id);
-    }else {
+    } else {
       setStrikeThrough(false);
       props.setDataId((data) => data.filter((id) => id !== props.item.id));
     }
-  }
+  };
 
   return (
     <>
