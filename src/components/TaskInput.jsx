@@ -9,7 +9,7 @@ const AutoTextArea = (props) => {
   const [textAreaHeight, setTextAreaHeight] = useState("auto");
   const [parentHeight, setParentHeight] = useState("auto");
   const [disabled, setDisabled] = useState(true);
-
+  let showStrike = false;
   // console.log(props.item,'item from task input');
   useEffect(() => {
     setParentHeight(`${textAreaRef.current.scrollHeight}px`);
@@ -23,19 +23,26 @@ const AutoTextArea = (props) => {
       props.onChange(event);
     }
   };
+  useEffect(() => {
+    if(props.showStrikeValue === false){
+      let clearStrikeValue = false;
+      let setClearValue = true;
+      setStrikeThrough(clearStrikeValue);
+      props.setShowStrikeValue(setClearValue);
+    }
+  },[props.showStrikeValue]);
+
   const handleDelete = () => {
-    let showStrike = !strikeThrough;
+    showStrike = !strikeThrough;
     setStrikeThrough(showStrike);
     props.setCancel(false);
     if(showStrike) {
-      console.log('yes');
       let id = [...props.dataId, props.item.id];
       props.setDataId(id);
     }else {
       setStrikeThrough(false);
       props.setDataId((data) => data.filter((id) => id !== props.item.id));
     }
-    // if() 
   }
 
   return (
@@ -44,7 +51,7 @@ const AutoTextArea = (props) => {
         <textarea
           value={props.item.task_post}
           className={`relative  resize-none pt-12 px-2 tracking-[3px] w-[100%] h-[75px] ${
-            strikeThrough ? "line-through" : ""
+            strikeThrough && props.showStrikeValue ? "line-through" : ""
           } bg-white overflow-y-hidden focus:outline-0 border-b-4 border-b-slate-500  text_pad-input`}
           {...props}
           ref={textAreaRef}

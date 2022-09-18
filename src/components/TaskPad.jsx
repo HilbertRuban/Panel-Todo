@@ -4,9 +4,9 @@ import { ToastContext } from "../App";
 import axios from "axios";
 const TaskPad = ({ usersData }) => {
   const [dataId, setDataId] = useState([]);
-  const [strikeValue, setStrikeValue] = useState(false);
   const { userData, getData, setGetData } = useContext(ToastContext);
   const [cancel, setCancel] = useState(false);
+  const [showStrikeValue,setShowStrikeValue] = useState(true);
   let showCancelSave = false;
 
   if (dataId.length && getData.length) {
@@ -28,11 +28,11 @@ const TaskPad = ({ usersData }) => {
         <TaskInput
           cancel={cancel}
           setCancel={setCancel}
-          strikeValue={strikeValue}
-          setStrikeValue={setStrikeValue}
           dataId={dataId}
           setDataId={setDataId}
           item={item}
+          showStrikeValue={showStrikeValue}
+          setShowStrikeValue={setShowStrikeValue}
         />
       </div>
     </div>
@@ -52,7 +52,8 @@ const TaskPad = ({ usersData }) => {
     }
   };
   const handleCancel = () => {
-    getUserData();
+    setShowStrikeValue(false);
+    setDataId([]);
   };
 
   const handleSave = () => {
