@@ -3,7 +3,6 @@ import InputTask from "./InputTask";
 import Navbar from "./Navbar";
 import SignInModal from "./SignInModal";
 // import UserName from "./UserName";
-// import { ToastContext } from "../App";
 
 const Hero = () => {
   // const {userData} = useContext(ToastContext);

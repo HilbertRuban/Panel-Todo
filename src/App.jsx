@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
-import reactLogo from "./assets/react.svg";
 import "./App.css";
 import Hero from "./components/Hero";
 import TaskSection from "./components/TaskSection";
 import Toast from "./utilitiesComponent/Toast";
-import axios from "axios";
 export const ToastContext = React.createContext();
 
 function App() {
@@ -17,11 +15,8 @@ function App() {
   const [showSignedIn, setShowSignedIn] = useState(
     () => localStorage.getItem("userId") || 0
   );
-  // const [userName, setUserName] = useState(localStorage.getItem("name") || "");
-    console.log('setdata')
   useEffect(() => {
     setShowSignedIn(localStorage.removeItem("userId"));
-    // setUserName(localStorage.removeItem("name"));
   }, []);
 
   return (

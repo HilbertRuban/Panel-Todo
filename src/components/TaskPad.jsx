@@ -7,7 +7,10 @@ const TaskPad = ({ usersData }) => {
   const { userData, getData, setGetData } = useContext(ToastContext);
   const [cancel, setCancel] = useState(false);
   const [showStrikeValue, setShowStrikeValue] = useState(true);
+  const [taskData, setTaskData] = useState({});
   let showCancelSave = false;
+
+  // console.log(taskData,'task data in taskpad')
 
   if (dataId.length && getData.length) {
     // console.log(dataId,'dataid in task pad');
@@ -15,9 +18,34 @@ const TaskPad = ({ usersData }) => {
   } else {
     showCancelSave = false;
   }
-  // console.log(getData, "get data in task pad");
-  // console.log('setdata');
-  // console.log(dataId, "data");
+
+  let getUserData = async () => {
+    let user_id = localStorage.getItem("userId");
+    const response = await axios.get(
+      `http://todo.localhost/api/task/${user_id}`
+    );
+    if (response.data.data.length) {
+      // console.log("response inside");
+      setGetData(response.data.data);
+    } else {
+      setGetData(response.data.data);
+    }
+  };
+
+  useEffect(() => {
+    if (Object.keys(taskData).length) {
+      const res = axios.put("http://todo.localhost/api/task/update", {
+        taskData,
+      });
+      res
+        .then((resp) => {
+          getUserData();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [taskData]);
 
   let list = usersData.map((item, index) => (
     <div key={item.id}>
@@ -30,6 +58,8 @@ const TaskPad = ({ usersData }) => {
           setCancel={setCancel}
           dataId={dataId}
           setDataId={setDataId}
+          taskData={taskData}
+          setTaskData={setTaskData}
           item={item}
           showStrikeValue={showStrikeValue}
           setShowStrikeValue={setShowStrikeValue}
@@ -38,19 +68,6 @@ const TaskPad = ({ usersData }) => {
     </div>
   ));
 
-  let getUserData = async () => {
-    let user_id = localStorage.getItem("userId");
-    const response = await axios.get(
-      `http://todo.localhost/api/task/${user_id}`
-    );
-    // console.log(response.data.data, "response data in get user data");
-    if (response.data.data.length) {
-      // console.log("response inside");
-      setGetData(response.data.data);
-    } else {
-      setGetData(response.data.data);
-    }
-  };
   const handleCancel = () => {
     setShowStrikeValue(false);
     setDataId([]);
@@ -63,6 +80,7 @@ const TaskPad = ({ usersData }) => {
     const res = axios.delete("http://todo.localhost/api/task/delete", { data });
     res.then((resp) => {
       if (resp.data.message) {
+        setDataId([]);
         getUserData();
       }
     });
